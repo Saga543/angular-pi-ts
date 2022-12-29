@@ -1,0 +1,9 @@
+.frame {
+    background-color: white;
+    border-style: groove;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}

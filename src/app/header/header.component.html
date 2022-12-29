@@ -1,0 +1,14 @@
+<div class="row mb-5">
+    <div class="col-3">
+        <a routerLink="/home">
+            <h1>Smaczne.pl</h1>
+        </a>
+    </div>
+    <div class="col-6 mt-1">
+        <input type="text" class="form-control text-center" placeholder="Wpisz lokalizację"
+            [(ngModel)]="inputedLocation" (keyup.enter)="onInputLocation(inputedLocation)">
+    </div>
+    <div class="col-3 text-end">
+        <h2>Zaloguj się</h2>
+    </div>
+</div>

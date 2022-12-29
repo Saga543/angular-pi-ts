@@ -1,0 +1,42 @@
+<app-header></app-header>
+
+<div class="row mt-5">
+    <div class="col-8 mx-4 p-0 h-25 frame">
+        <section class="row m-2 frame" *ngFor="let dish of restaurant.dishes">
+            <div class="col-8">
+                <h2>{{ dish.name }}</h2>
+            </div>
+            <div class="col-4">
+                <h2 class="text-end">{{ dish.price }} zł</h2>
+            </div>
+            <div class="col-8">
+                <p>{{ dish.description }}</p>
+            </div>
+            <div class="col-sm-4 text-center text-sm-end mb-1">
+                <button class="btn btn-success w-75" type="button" (click)="onAddDish(dish)"
+                    *ngIf="!order.dishes.includes(dish)">Dodaj do
+                    zamówienia</button>
+            </div>
+        </section>
+    </div>
+    <article class="col-3 mx-4 h-25 frame">
+        <div class="row">
+            <h2 class="col-12 text-center">Zamówienie</h2>
+            <ul class="col-12 mx-3">
+                <li *ngFor="let dish of order.dishes">
+                    {{ dish.name }} <strong>x {{dish.quantity}} </strong>
+                    <button (click)="onIncreaseQuantity(dish)" style="background-color: lightgreen;">+</button>
+                    <button (click)="onReduceQuantity(dish)" style="background-color: red;">-</button>
+                    <button (click)="onDeleteDish(dish)">X</button>
+                </li>
+            </ul>
+            <h3 class="text-center">{{ order.price }}zł</h3>
+            <div class="col-12 text-center mb-1">
+                <a>
+                    <button class="btn btn-success w-75" type="button"
+                        [disabled]="order.dishes.length === 0">Potwierdzam zamówienie</button>
+                </a>
+            </div>
+        </div>
+    </article>
+</div>
