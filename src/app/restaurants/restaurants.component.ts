@@ -4,43 +4,53 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { RestaurantsService } from '../app-services/restaurants.service';
 import { Restaurant } from '../app-models/restaurant.model';
 
+
 @Component({
   selector: 'app-restaurants',
   templateUrl: './restaurants.component.html',
   styleUrls: ['./restaurants.component.css', '../app.component.css']
 })
 export class RestaurantsComponent implements OnInit {
-  enteredLocation: string = '';
   restaurants: Restaurant[] = [];
+  loading: boolean = true;
 
   categoriesNames: string[] = [];
-  categoriesForm: FormGroup;
+  categoriesForm: FormGroup = new FormGroup({});
 
 
-  constructor(private restaurantsService: RestaurantsService, private route: ActivatedRoute) {
-    this.categoriesForm = new FormGroup({});
-  }
+  constructor(private restaurantsService: RestaurantsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
       (params: Params) => {
-        this.enteredLocation = params['location'];
-        this.categoriesNames = this.restaurantsService.getCategoriesFromLocation(this.enteredLocation);
-        this.restaurants = this.restaurantsService.getRestaurants(this.enteredLocation);
+        const enteredLocation: string = params['location'];
 
-        for (const category of this.categoriesNames) {
-          this.categoriesForm.addControl(category, new FormControl(false));
-        }
-      }
-    );
+
+        this.restaurantsService.getRestaurants(enteredLocation).subscribe(
+          restaurants => {
+            this.restaurants = this.restaurantsService.restaurants;
+            this.categoriesNames = this.restaurantsService.getCategories();
+
+            for (const category of this.categoriesNames) {
+              this.categoriesForm.addControl(category, new FormControl(false));
+            }
+
+            this.loading = false;
+          });
+      });
 
     this.categoriesForm.valueChanges.subscribe(
       (values) => {
         const checkedCategories = Object.keys(values).filter(key => values[key] === true);
 
-        this.restaurants = this.restaurantsService.getRestaurants(this.enteredLocation, checkedCategories);
-      }
-    );
+        if (checkedCategories.length > 0) {
+          this.restaurants = this.restaurantsService.restaurants.filter(restaurant =>
+            checkedCategories.includes(restaurant.category));
+        } else { this.restaurants = this.restaurantsService.restaurants }
+
+      });
+
+
   }
 
 }

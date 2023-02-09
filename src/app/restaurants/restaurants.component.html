@@ -1,6 +1,9 @@
 <app-header></app-header>
+<div class="col text-center" *ngIf="loading">
+    <app-loading-spinner></app-loading-spinner>
+</div>
 
-<div class="row" *ngIf="restaurants.length > 0; else noRestaurantsFound">
+<div class="row" *ngIf="restaurants.length > 0">
     <div class="col-3 mx-5 h-25 frame">
         <h2 class="col-12 text-center">Kategorie</h2>
         <hr>
@@ -49,10 +52,9 @@
         </section>
     </article>
 </div>
-<ng-template #noRestaurantsFound>
-    <div class="row">
-        <div class="col-8 offset-2 text-center">
-            <h1>Brak restauracji w podanej lokalizacji!</h1>
-        </div>
+
+<div class="row" *ngIf="restaurants.length == 0 && !loading">
+    <div class="col-8 offset-2 text-center">
+        <h1>Brak restauracji w podanej lokalizacji!</h1>
     </div>
-</ng-template>
+</div>

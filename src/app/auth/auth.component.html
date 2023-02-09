@@ -1,0 +1,45 @@
+<app-header></app-header>
+<div class="container d-flex align-content-end flex-wrap mt-5">
+    <div class="col-sm-8 col-md-6 col-lg-4 offset-xs-1 offset-sm-2 offset-md-3 offset-lg-4 my-3 frame">
+        <div class="row text-center">
+            <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+                <div class="col-10 col-sm-8 offset-1 offset-sm-2 my-4">
+                    <h5>E-mail</h5>
+                    <input type="text" class="form-control text-center" ngModel name="email" required email>
+                </div>
+                <div class="col-10 col-sm-8 offset-1 offset-sm-2 mt-1 mb-4">
+                    <h5>Hasło</h5>
+                    <input type="password" class="form-control text-center" ngModel name="password" required
+                        minlength="6">
+                </div>
+                <div class="col-10 col-sm-8 offset-1 offset-sm-2 mt-1 mb-4" *ngIf="!loginMode">
+                    <h5>Powtórz hasło</h5>
+                    <input type="password" class="form-control text-center" ngModel name="repeatPassword" required
+                        minlength="6">
+                </div>
+                <div class="col-12 mb-4">
+                    <button type="submit" class="col-6 btn btn-success" [disabled]="!registerForm.valid">{{ loginMode ?
+                        'Zaloguj' : 'Zarejestruj'}}</button>
+                </div>
+            </form>
+            <div class="col-12 mb-4" *ngIf="isLoading">
+                <app-loading-spinner></app-loading-spinner>
+            </div>
+            <div class="col-12 mb-4" *ngIf="error">
+                <div class="alert alert-danger">
+                    <p>{{error}}</p>
+                </div>
+            </div>
+            <div class="col-12 mb-4">
+                <h6>{{ loginMode ?
+                    'Nie masz konta ?' : 'Masz już konto ?'}}</h6>
+                <button type="button" class="btn btn-success" (click)="onSwitchMode()">{{ loginMode ?
+                    'Zarejestruj się' : 'Zaloguj się'}}</button>
+            </div>
+            <div class="col-12 mb-4">
+                <h6>Prowadzisz restaurację ?</h6>
+                <button type="button" class="btn btn-success">Dodaj ofertę</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,7 +8,19 @@
         <input type="text" class="form-control text-center" placeholder="Wpisz lokalizację"
             [(ngModel)]="inputedLocation" (keyup.enter)="onInputLocation(inputedLocation)">
     </div>
-    <div class="col-3 text-end">
-        <h2>Zaloguj się</h2>
+    <div class="col-3 text-end" *ngIf="isAuthenticated">
+        <a routerLink="/home">
+            <h2>Twoje zamówienia</h2>
+        </a>
+        <a routerLink="/home">
+            <h4>Wyloguj</h4>
+        </a>
     </div>
+    <div class="col-3 text-end" *ngIf="!isAuthenticated">
+        <a routerLink="/konto">
+            <h2>Zaloguj się</h2>
+        </a>
+    </div>
+    <button class="btn btn-primary mt-5" (click)="onPost()">POST</button>
+    <button class="btn btn-success mt-5" (click)="onGet()">GET</button>
 </div>

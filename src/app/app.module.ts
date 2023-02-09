@@ -9,6 +9,10 @@ import { HeaderComponent } from './header/header.component';
 import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { RestaurantDetailComponent } from './restaurants/restaurant-detail/restaurant-detail.component';
 import { OrdersService } from './app-services/orders.service';
+import { ContactDetailsComponent } from './contact-details/contact-details.component';
+import { AuthComponent } from './auth/auth.component';
+import { HttpClientModule } from '@angular/common/http';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 
 @NgModule({
@@ -17,12 +21,16 @@ import { OrdersService } from './app-services/orders.service';
     HeaderComponent,
     RestaurantsComponent,
     RestaurantDetailComponent,
+    ContactDetailsComponent,
+    AuthComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [RestaurantsService, OrdersService],
   bootstrap: [AppComponent],

@@ -27,7 +27,7 @@ export class RestaurantDetailComponent implements OnInit, OnDestroy {
         let restaurantName = params['restaurantName'];
         let restaurantLocation = params['location'];
 
-        this.restaurant = this.restaurantsService.getRestaurant(restaurantName, restaurantLocation);
+        // this.restaurant = this.restaurantsService.getRestaurant(restaurantName, restaurantLocation);
         this.order = this.ordersService.getOrderFromRestaurant(this.restaurant);
 
         if (this.restaurant.name === '') {
@@ -66,6 +66,10 @@ export class RestaurantDetailComponent implements OnInit, OnDestroy {
     this.ordersService.reduceDishQuantity(this.order, dish);
     this.order.price = this.ordersService.countOrderPrice(this.order);
     console.log('orders service: ', this.ordersService.orders)
+  }
+
+  goToContactDetails() {
+    this.router.navigate(['restauracje/', this.restaurant.location, this.restaurant.name, 'dane_kontaktowe']);
   }
 
 }
