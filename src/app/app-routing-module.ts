@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthComponent } from "./auth/auth.component";
+import { ClientOrdersComponent } from "./client-orders/client-orders.component";
 import { ContactDetailsComponent } from "./contact-details/contact-details.component";
 
 import { HeaderComponent } from "./header/header.component";
@@ -13,7 +14,8 @@ const appRoutes: Routes = [
     { path: 'restauracje/:location', component: RestaurantsComponent },
     { path: 'restauracje/:location/:restaurantName', component: RestaurantDetailComponent },
     { path: 'restauracje/:location/:restaurantName/dane_kontaktowe', component: ContactDetailsComponent },
-    { path: 'konto', component: AuthComponent }
+    { path: 'konto', component: AuthComponent },
+    { path: 'konto/zamówienia', component: ClientOrdersComponent }
 ];
 
 @NgModule({

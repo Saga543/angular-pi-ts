@@ -13,6 +13,7 @@ import { ContactDetailsComponent } from './contact-details/contact-details.compo
 import { AuthComponent } from './auth/auth.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { ClientOrdersComponent } from './client-orders/client-orders.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     RestaurantDetailComponent,
     ContactDetailsComponent,
     AuthComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    ClientOrdersComponent
   ],
   imports: [
     BrowserModule,

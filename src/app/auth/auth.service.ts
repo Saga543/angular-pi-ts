@@ -16,11 +16,13 @@ export interface AuthResponseData {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
     user = new Subject<User>();
+    userId: string = '';
     userAuthenticated: boolean = false;
 
     constructor(private http: HttpClient) {
         this.user.subscribe(user => {
             this.userAuthenticated = !!user;
+            this.userId = user.id;
         });
     }
 

@@ -9,7 +9,7 @@
             [(ngModel)]="inputedLocation" *ngIf="!displayHomePage" (keyup.enter)="onInputLocation(inputedLocation)">
     </div>
     <div class="col-3 text-end" *ngIf="isAuthenticated">
-        <a routerLink="/home">
+        <a routerLink="/konto/zamówienia">
             <h2>Twoje zamówienia</h2>
         </a>
         <a routerLink="/home">

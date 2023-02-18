@@ -7,7 +7,12 @@ export class Order {
     constructor(
         public restaurant: Restaurant,
         public dishes: OrderDish[],
+
         public price: number = 0,
+        public state: string = 'złożone',
+
+        public userId?: string,
+        public date?: string,
         public contactDetails?: ContactDetails,
     ) { }
 

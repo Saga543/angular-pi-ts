@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { format } from 'date-fns';
 import { ContactDetails } from '../app-models/contactDetails.model';
 import { Order } from '../app-models/order.model';
 import { Restaurant } from '../app-models/restaurant.model';
 import { OrdersService } from '../app-services/orders.service';
 import { RestaurantsService } from '../app-services/restaurants.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-contact-details',
@@ -29,7 +31,7 @@ export class ContactDetailsComponent implements OnInit {
   });
 
   constructor(private restaurantsService: RestaurantsService, private ordersService: OrdersService,
-    private route: ActivatedRoute, private router: Router) {
+    private route: ActivatedRoute, private router: Router, private auth: AuthService) {
   }
 
   ngOnInit(): void {
@@ -64,12 +66,15 @@ export class ContactDetailsComponent implements OnInit {
         this.contactDetailsForm.get('flatNumber')?.value,
       );
 
-      console.log(contactDetails)
+      if (this.auth.userAuthenticated) this.order.userId = this.auth.userId;
+
       this.order.contactDetails = contactDetails;
+      this.order.date = format(new Date(), 'dd.MM.yyyy HH:mm');
+
       this.ordersService.sendOrder(this.order);
 
-      // this.router.navigate(['/home']);
       alert('Zamówienie zostało wysłane!');
+      this.router.navigate(['/home']);
     } else {
       alert('Uzupełnij poprawnie formularz!');
     }
