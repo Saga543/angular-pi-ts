@@ -3,63 +3,85 @@
 <main class="row mt-5">
 
     <section class="col-sm-8 col-md-6 offset-sm-2 offset-md-3 mb-3 p-0 frame">
-        <form action="" method="POST">
+        <form [formGroup]="contactDetailsForm" (ngSubmit)="onSubmit()">
             <div class="row m-1 frame">
                 <legend style="font-weight: bold;">Dane osobowe</legend>
                 <div class="col-12 col-xl-6 mb-3">
                     <h5 class="text-center">Imię</h5>
-                    <input type="text" class="form-control text-center">
+                    <input id="name" type="text" class="form-control text-center" formControlName="name">
+                    <span class="form-text"
+                        *ngIf="!contactDetailsForm.get('name')?.valid && contactDetailsForm.get('name')?.touched">Podaj
+                        imię</span>
                 </div>
                 <div class="col-12 col-xl-6 mb-3">
-                    <h5 class="text-center">E-mail</h5>
-                    <input type="text" class="form-control text-center">
+                    <h5 class="text-center">E-mail*</h5>
+                    <input type="text" class="form-control text-center" formControlName="email">
+                    <span class="form-text"
+                        *ngIf="!contactDetailsForm.get('email')?.valid && contactDetailsForm.get('email')?.touched">Niepoprawny
+                        format email</span>
                 </div>
-                <div class="col-12 col-xl-6 text-end mb-3">
+                <div class="col-12 col-xl-6 mb-3">
                     <h5 class="text-center">Nazwisko</h5>
-                    <input type="text" class="form-control text-center">
+                    <input type="text" class="form-control text-center" formControlName="surname">
+                    <span class="form-text"
+                        *ngIf="!contactDetailsForm.get('surname')?.valid && contactDetailsForm.get('surname')?.touched">Podaj
+                        nazwisko</span>
                 </div>
                 <div class="col-12 col-xl-6 mb-3">
                     <h5 class="text-center">Telefon</h5>
-                    <input type="text" class="form-control text-center">
+                    <input type="tel" class="form-control text-center" formControlName="phoneNumber">
+                    <span class="form-text"
+                        *ngIf="!contactDetailsForm.get('phoneNumber')?.valid && contactDetailsForm.get('phoneNumber')?.touched">Niepoprawny
+                        numer telefonu</span>
                 </div>
             </div>
-        </form>
-        <form action="" method="POST">
             <div class="row m-1 frame">
                 <legend style="font-weight: bold;">Adres dostawy</legend>
                 <div class="col-xl-6 mb-3">
                     <h5 class="text-center">Miasto</h5>
-                    <input type="text" class="form-control text-center">
+                    <input type="text" class="form-control text-center" formControlName="location">
+                    <span class="form-text"
+                        *ngIf="!contactDetailsForm.get('location')?.valid && contactDetailsForm.get('location')?.touched">Podaj
+                        miasto</span>
                 </div>
                 <div class="col-xl-6 mb-3">
                     <h5 class="text-center">Nr. budynku</h5>
-                    <input type="text" class="form-control text-center">
+                    <input type="text" class="form-control text-center" formControlName="buildingNumber">
+                    <span class="form-text"
+                        *ngIf="!contactDetailsForm.get('buildingNumber')?.valid && contactDetailsForm.get('buildingNumber')?.touched">Podaj
+                        numer budynku</span>
                 </div>
-                <div class="col-xl-6 text-end mb-3">
+                <div class="col-xl-6 mb-3">
                     <h5 class="text-center">Ulica</h5>
-                    <input type="text" class="form-control text-center">
+                    <input type="text" class="form-control text-center" formControlName="street">
+                    <span class="form-text"
+                        *ngIf="!contactDetailsForm.get('street')?.valid && contactDetailsForm.get('street')?.touched">Podaj
+                        ulicę</span>
                 </div>
-                <div class="col-xl-6 text-end mb-3">
-                    <h5 class="text-center">Nr. mieszkania</h5>
-                    <input type="text" class="form-control text-center">
+                <div class="col-xl-6 mb-3">
+                    <h5 class="text-center">Nr. mieszkania*</h5>
+                    <input type="text" class="form-control text-center" formControlName="flatNumber">
+                    <span class="form-text"
+                        *ngIf="!contactDetailsForm.get('flatNumber')?.valid && contactDetailsForm.get('flatNumber')?.touched">Pole
+                        musi zawierać wyłącznie numer</span>
                 </div>
             </div>
         </form>
+        <h6 class="text-end mx-2">* opcjonalnie</h6>
     </section>
 
-    <section class="col-sm-8 col-md-6 col-xxl-2 offset-sm-2 offset-md-3 mx-xxl-5 h-25 frame">
+    <section class="col-sm-8 col-md-6 offset-sm-2 offset-md-3 h-25 frame">
         <div class="row">
             <h2 class="col-12 text-center">Zamówienie</h2>
-            <ul class="col-12 mx-3">
-                <li>Danie 1</li>
-                <li>Danie 2</li>
-                <li>Danie 3</li>
-                <li>Danie 4</li>
-                <li>Danie 5</li>
-            </ul>
-            <h3 class="text-center">Cena</h3>
+            <div class="col-12 text-center">
+                <ul class="list-group" *ngFor="let orderDish of order.dishes">
+                    <li class="list-group-item">{{orderDish.dish.name}} x <strong>{{orderDish.quantity}}</strong></li>
+                </ul>
+            </div>
+
+            <h3 class="text-center">Razem: {{order.price}} zł</h3>
             <div class="col-12 text-center mb-3">
-                <button class="btn btn-success w-75">Potwierdzam i płacę</button>
+                <button class="btn btn-success w-75" (click)="onSubmit()">Potwierdzam i płacę</button>
             </div>
         </div>
     </section>

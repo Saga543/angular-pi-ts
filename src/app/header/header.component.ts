@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Dish } from '../app-models/dish.model';
 import { Restaurant } from '../app-models/restaurant.model';
@@ -14,11 +14,15 @@ import { AuthService } from '../auth/auth.service';
 export class HeaderComponent implements OnInit {
   inputedLocation: string = '';
   isAuthenticated: boolean = false;
+  displayHomePage: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService, private http: HttpClient) { }
+  constructor(private router: Router, private authService: AuthService, private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.isAuthenticated = this.authService.userAuthenticated;
+
+    if (this.router.url === '/home') this.displayHomePage = true;
+
   }
 
 

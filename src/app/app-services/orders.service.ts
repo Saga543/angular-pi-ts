@@ -1,17 +1,16 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Dish } from "../app-models/dish.model";
 import { Order } from "../app-models/order.model";
 import { Restaurant } from "../app-models/restaurant.model";
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OrdersService {
     orders: Order[] = [];
 
-    createOrder(restaurant: Restaurant, dishes: Dish[], price: number = 0) {
-        let order = new Order(restaurant, dishes, price);
-        this.orders.push(order);
+    constructor(private http: HttpClient) { }
 
-        return order;
+    addOrder(order: Order) {
+        this.orders.push(order);
     }
 
     deleteOrder(orderToDelete: Order) {
@@ -19,47 +18,26 @@ export class OrdersService {
         this.orders.splice(resultIndex, 1);
     }
 
-    getOrderFromRestaurant(restaurant: Restaurant): Order {
+    getOrder(restaurant: Restaurant): Order {
         let resultOrder = this.orders.find(order => order.restaurant.name === restaurant.name);
 
-        if (resultOrder === undefined) return this.createOrder(restaurant, [], 0);
+        if (resultOrder === undefined) return new Order(restaurant, [], 0);
 
         return resultOrder;
     }
 
-    addDishToOrder(order: Order, dish: Dish) {
-        order.dishes.push(dish);
+    isOrderInList(order: Order) {
+        let resultIndex = this.orders.indexOf(order);
+
+        if (resultIndex === -1) return false;
+
+        return true;
     }
 
-    increaseDishQuantity(order: Order, dish: Dish) {
-        let resultDish = order.dishes.find(arrayDish => arrayDish === dish);
-
-        if (resultDish !== undefined) {
-            resultDish.increaceQuantity();
-        }
+    sendOrder(order: Order) {
+        this.http.post(
+            'https://fd-angular-default-rtdb.europe-west1.firebasedatabase.app/orders.json', order
+        ).subscribe();
     }
 
-    reduceDishQuantity(order: Order, dish: Dish) {
-        let resultDish = order.dishes.find(arrayDish => arrayDish === dish);
-
-        if (resultDish !== undefined) {
-            resultDish.reduceQuantity();
-        }
-    }
-
-    deleteDishFromOrder(order: Order, dish: Dish) {
-        let index: number = order.dishes.indexOf(dish);
-
-        order.dishes[index].setDefaultQuantity();
-        order.dishes.splice(index, 1);
-    }
-
-    countOrderPrice(order: Order): number {
-        let orderPrice: number = 0;
-
-        for (let dish of order.dishes) {
-            orderPrice = orderPrice + (dish.price * dish.quantity);
-        }
-        return orderPrice;
-    }
 }

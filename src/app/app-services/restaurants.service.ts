@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
-import { filter, map } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { Restaurant } from "../app-models/restaurant.model";
 
 
@@ -42,5 +41,14 @@ export class RestaurantsService {
     }
 
 
-    // getRestaurant(name: string, location: string) { }
+    getRestaurant(name: string, location: string): Restaurant {
+        location = location.toLowerCase();
+
+        for (let restaurant of this.restaurants) {
+            if ((restaurant.name === name) && (restaurant.location === location)) {
+                return restaurant;
+            }
+        }
+        return new Restaurant('', 0, 0, 0, 0, false, '', '', []);
+    }
 }

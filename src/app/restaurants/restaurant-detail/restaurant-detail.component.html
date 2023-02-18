@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class="row mt-5">
+<main class="row mt-5">
     <div class="col-8 mx-4 p-0 h-25 frame">
         <section class="row m-2 frame" *ngFor="let dish of restaurant.dishes">
             <div class="col-8">
@@ -14,29 +14,45 @@
             </div>
             <div class="col-sm-4 text-center text-sm-end mb-1">
                 <button class="btn btn-success w-75" type="button" (click)="onAddDish(dish)"
-                    *ngIf="!order.dishes.includes(dish)">Dodaj do
+                    *ngIf="!order.isDishInOrder(dish)">Dodaj do
                     zamówienia</button>
+
             </div>
         </section>
     </div>
     <article class="col-3 mx-4 h-25 frame">
         <div class="row">
-            <h2 class="col-12 text-center">Zamówienie</h2>
-            <ul class="col-12 mx-3">
-                <li *ngFor="let dish of order.dishes">
-                    {{ dish.name }} <strong>x {{dish.quantity}} </strong>
-                    <button (click)="onIncreaseQuantity(dish)" style="background-color: lightgreen;">+</button>
-                    <button (click)="onReduceQuantity(dish)" style="background-color: red;">-</button>
-                    <button (click)="onDeleteDish(dish)">X</button>
-                </li>
-            </ul>
+            <h2 class="col-12 text-center" *ngIf="order.dishes.length > 0; else emptyOrder">Zamówienie</h2>
+            <ng-template #emptyOrder>
+                <h2 class="col-12 text-center">Zamówienie jest puste!</h2>
+            </ng-template>
+
+            <div class="col-12 text-center">
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let orderDish of order.dishes">
+                        <div class="row">
+                            <div class="col-6">{{ orderDish.dish.name }} <strong>x {{ orderDish.quantity }} </strong>
+                            </div>
+                            <div class="col-6 text-end">
+                                <button class="btn btn-success btn-sm mx-1 w-25"
+                                    (click)="onIncreaseQuantity(orderDish.dish)">+</button>
+                                <button class="btn btn-danger btn-sm mx-1 w-25"
+                                    (click)="onReduceQuantity(orderDish.dish)">-</button>
+                                <button class="btn btn-dark btn-sm mx-1 w-25"
+                                    (click)="onDeleteDish(orderDish.dish)">x</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             <h3 class="text-center">{{ order.price }}zł</h3>
-            <div class="col-12 text-center mb-1">
+            <div class="col-12 text-center mb-2">
                 <a>
-                    <button class="btn btn-success w-75" type="button" [disabled]="order.dishes.length === 0"
-                        (click)="goToContactDetails()">Potwierdzam zamówienie</button>
+                    <button id="confirm-order-button" class="btn btn-success w-75" type="button"
+                        [disabled]="order.dishes.length === 0" (click)="goToContactDetails()">Potwierdzam
+                        zamówienie</button>
                 </a>
             </div>
         </div>
     </article>
-</div>
+</main>

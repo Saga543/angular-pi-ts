@@ -1,12 +1,12 @@
 <div class="row mb-5">
     <div class="col-3">
         <a routerLink="/home">
-            <h1>Smaczne.pl</h1>
+            <h1>FoodDelivery</h1>
         </a>
     </div>
     <div class="col-6 mt-1">
         <input type="text" class="form-control text-center" placeholder="Wpisz lokalizację"
-            [(ngModel)]="inputedLocation" (keyup.enter)="onInputLocation(inputedLocation)">
+            [(ngModel)]="inputedLocation" *ngIf="!displayHomePage" (keyup.enter)="onInputLocation(inputedLocation)">
     </div>
     <div class="col-3 text-end" *ngIf="isAuthenticated">
         <a routerLink="/home">
@@ -21,6 +21,17 @@
             <h2>Zaloguj się</h2>
         </a>
     </div>
-    <button class="btn btn-primary mt-5" (click)="onPost()">POST</button>
-    <button class="btn btn-success mt-5" (click)="onGet()">GET</button>
+    <!-- <button class="btn btn-primary mt-5" (click)="onPost()">POST</button>
+    <button class="btn btn-success mt-5" (click)="onGet()">GET</button> -->
+</div>
+<div class="row mb-5"></div>
+<div id="home-layout" *ngIf="displayHomePage">
+    <div class="text-center">
+        <h2>Witaj w serwisie do zamawiania jedzenia online!</h2>
+        <h2>Znajdź restauracje w interesującej Cię lokalizacji, a następnie sprawdź ich ofertę.</h2>
+        <div class="col mt-3 text-center">
+            <input type="text" class="form-control text-center" placeholder="Wpisz lokalizację"
+                [(ngModel)]="inputedLocation" (keyup.enter)="onInputLocation(inputedLocation)">
+        </div>
+    </div>
 </div>
