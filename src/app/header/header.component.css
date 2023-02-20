@@ -4,3 +4,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+h4:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

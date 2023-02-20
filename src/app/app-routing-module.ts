@@ -5,6 +5,7 @@ import { ClientOrdersComponent } from "./client-orders/client-orders.component";
 import { ContactDetailsComponent } from "./contact-details/contact-details.component";
 
 import { HeaderComponent } from "./header/header.component";
+import { RestaurantOwnerPanelComponent } from "./restaurant-owner-panel/restaurant-owner-panel.component";
 import { RestaurantDetailComponent } from "./restaurants/restaurant-detail/restaurant-detail.component";
 import { RestaurantsComponent } from "./restaurants/restaurants.component";
 
@@ -15,7 +16,10 @@ const appRoutes: Routes = [
     { path: 'restauracje/:location/:restaurantName', component: RestaurantDetailComponent },
     { path: 'restauracje/:location/:restaurantName/dane_kontaktowe', component: ContactDetailsComponent },
     { path: 'konto', component: AuthComponent },
-    { path: 'konto/zamówienia', component: ClientOrdersComponent }
+    { path: 'konto/zamówienia', component: ClientOrdersComponent },
+    { path: 'konto/panel_restauracji', component: RestaurantOwnerPanelComponent },
+
+    { path: '**', redirectTo: '/home' },
 ];
 
 @NgModule({

@@ -58,4 +58,5 @@ export class Order {
         }
         this.price = orderPrice;
     }
+
 }

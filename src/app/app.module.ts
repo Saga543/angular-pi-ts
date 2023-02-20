@@ -14,6 +14,7 @@ import { AuthComponent } from './auth/auth.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { ClientOrdersComponent } from './client-orders/client-orders.component';
+import { RestaurantOwnerPanelComponent } from './restaurant-owner-panel/restaurant-owner-panel.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ClientOrdersComponent } from './client-orders/client-orders.component';
     ContactDetailsComponent,
     AuthComponent,
     LoadingSpinnerComponent,
-    ClientOrdersComponent
+    ClientOrdersComponent,
+    RestaurantOwnerPanelComponent
   ],
   imports: [
     BrowserModule,

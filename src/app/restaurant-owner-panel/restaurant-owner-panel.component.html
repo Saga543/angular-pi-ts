@@ -1,0 +1,79 @@
+<div class="row mb-5">
+    <div class="col-6">
+        <h1>Food Delivery</h1>
+    </div>
+    <div class="col-6 text-end">
+        <a routerLink="/home" (click)="onLogout()">
+            <h2>Wyloguj</h2>
+        </a>
+    </div>
+</div>
+
+<section class="row p-2">
+    <div class="col-6 frame">
+        <h2>Zamówienia restauracji:</h2>
+        <h2>{{restaurant.name}}</h2>
+    </div>
+    <div class="col-6 text-center frame">
+        <h2>Łączna wartość zamówień</h2>
+        <h3>{{ ordersValue }} zł</h3>
+    </div>
+</section>
+
+<article *ngFor="let order of orders">
+    <div class="row p-2" *ngIf="order.state !== 'wysłane'">
+        <section class="col-8 frame">
+            <h3>Zamówienie złożone: {{ order.date }}</h3>
+            <ul class="list-group mb-2" *ngFor="let orderDish of order.dishes">
+                <li class="list-group-item">
+                    {{orderDish.dish.name}} <strong>x {{ orderDish.quantity }}</strong>
+                </li>
+            </ul>
+        </section>
+        <section class="col-4 text-center frame">
+            <h3>Wartość: {{ order.price }} zł</h3>
+            <h3>Status: <span [ngStyle]="{'color': order.state === 'złożone' ? 'lightcoral': 'lightblue'}">{{
+                    order.state }}</span></h3>
+            <button class="btn btn-success mb-2" (click)="onChangeOrderState(order)" *ngIf="order.state !== 'wysłane'">
+                Zmień status na: {{ order.state === 'złożone' ? 'w realizacji' : 'wysłane' }}</button>
+
+            <div class="btn-group dropstart">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Dane kontaktowe
+                </button>
+                <ul class="dropdown-menu">
+                    <li class="dropmenu-item">Imię: </li>
+                    <li class="dropmenu-item">Nazwisko: </li>
+                </ul>
+            </div>
+
+        </section>
+    </div>
+</article>
+
+<div class="row">
+    <div class="col">
+        <h2>Zrealizowane zamówienia</h2>
+    </div>
+</div>
+
+<article *ngFor="let order of orders">
+    <div class="row p-2" *ngIf="order.state === 'wysłane'">
+        <section class="col-8 frame">
+            <h3>Zamówienie złożone: {{ order.date }}</h3>
+            <ul class="list-group mb-2" *ngFor="let orderDish of order.dishes">
+                <li class="list-group-item">
+                    {{orderDish.dish.name}} <strong>x {{ orderDish.quantity }}</strong>
+                </li>
+            </ul>
+        </section>
+        <section class="col-4 text-center frame">
+            <h3>Wartość: {{ order.price }} zł</h3>
+            <h3>Status: <span class="finished">{{ order.state }}</span></h3>
+            <button class="btn btn-success mb-2" (click)="onChangeOrderState(order)" *ngIf="order.state !== 'wysłane'">
+                Zmień status na: {{ order.state === 'złożone' ? 'w realizacji' : 'wysłane' }}</button>
+
+        </section>
+    </div>
+</article>

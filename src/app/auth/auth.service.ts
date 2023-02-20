@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { BehaviorSubject, catchError, Subject, tap, throwError } from "rxjs";
 import { User } from "./user.model";
+import { RestaurantOwnersService } from "../app-services/restaurantOwners.service";
 
 export interface AuthResponseData {
     kind: string;
@@ -24,6 +25,7 @@ export class AuthService {
             this.userAuthenticated = !!user;
             this.userId = user.id;
         });
+
     }
 
     signup(email: string, password: string) {
@@ -32,7 +34,7 @@ export class AuthService {
             {
                 email: email,
                 password: password,
-                returnSecureToken: true
+                returnSecureToken: true,
             })
             .pipe(catchError(this.handleError),
                 tap(resData => {
@@ -53,6 +55,13 @@ export class AuthService {
                     this.handleAuthentication(resData.email, resData.localId, resData.idToken);
                 })
             );
+    }
+
+    logout() {
+        const user = new User('', '', '');
+
+        this.user.next(user);
+        this.userAuthenticated = false;
     }
 
     private handleAuthentication(email: string, userId: string, token: string) {

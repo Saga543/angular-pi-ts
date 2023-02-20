@@ -8,3 +8,7 @@
 h4 {
     text-decoration: underline;
 }
+
+.finished {
+    color: lightgreen;
+}

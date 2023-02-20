@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
+import { RestaurantOwnersService } from "../app-services/restaurantOwners.service";
 import { AuthResponseData, AuthService } from "./auth.service";
 
 @Component({
@@ -14,7 +15,7 @@ export class AuthComponent {
     isLoading: boolean = false;
     error: string | null = null;
 
-    constructor(private authService: AuthService, private router: Router) { }
+    constructor(private authService: AuthService, private router: Router, private ownersService: RestaurantOwnersService) { }
 
     onSwitchMode() {
         this.loginMode = !this.loginMode;
@@ -38,12 +39,15 @@ export class AuthComponent {
 
         authObs.subscribe(
             resData => {
-                console.log(resData);
                 this.isLoading = false;
-                this.router.navigate(['/home']);
+
+                this.ownersService.getOwnerById(this.authService.userId).subscribe(isOwner => {
+                    if (isOwner !== null) this.router.navigate(['/konto/panel_restauracji']);
+                    else this.router.navigate(['/home']);
+                });
+
             },
             errorMessage => {
-                console.log(errorMessage);
                 this.error = errorMessage;
                 this.isLoading = false;
             }

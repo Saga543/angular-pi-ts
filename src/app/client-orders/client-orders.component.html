@@ -3,21 +3,46 @@
     <app-loading-spinner></app-loading-spinner>
 </div>
 <div class="row">
-    <div class="col-8 offset-2 frame" *ngIf="orders.length > 0; else noOrdersFound">
+    <div class="col-8 offset-2" *ngIf="orders.length > 0; else noOrdersFound">
         <h2>Zamówienia</h2>
-        <div class="row" *ngFor="let order of orders">
-            <div class="col-8 frame">
-                <h3>{{order.restaurant.name}}</h3>
-                <ul class="list-group mb-2" *ngFor="let orderDish of order.dishes">
-                    <li class="list-group-item">
-                        {{ orderDish.dish.name }} <strong>x {{ orderDish.quantity }}</strong>
-                    </li>
-                </ul>
-                <h6>Złożone: {{ this.order.date }}</h6>
+        <div *ngFor="let order of orders">
+            <div class="row" *ngIf="order.state !== 'wysłane'">
+                <div class="col-8 frame">
+                    <h3>{{order.restaurant.name}}</h3>
+                    <ul class="list-group mb-2" *ngFor="let orderDish of order.dishes">
+                        <li class="list-group-item">
+                            {{ orderDish.dish.name }} <strong>x {{ orderDish.quantity }}</strong>
+                        </li>
+                    </ul>
+                    <h6>Złożone: {{ this.order.date }}</h6>
+                </div>
+                <div class="col-4 text-center frame">
+                    <h3>Status zamówienia:</h3>
+                    <h4 [ngStyle]="{'color': order.state === 'złożone' ? 'lightcoral': 'lightblue'}">{{order.state}}
+                    </h4>
+                </div>
             </div>
-            <div class="col-4 text-center frame">
-                <h3>Status zamówienia:</h3>
-                <h4>{{order.state}}</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-8 offset-2" *ngIf="orders.length > 0; else noOrdersFound">
+        <h2>Zrealizowane zamówienia</h2>
+        <div *ngFor="let order of orders">
+            <div class="row" *ngIf="order.state === 'wysłane'">
+                <div class="col-8 frame">
+                    <h3>{{order.restaurant.name}}</h3>
+                    <ul class="list-group mb-2" *ngFor="let orderDish of order.dishes">
+                        <li class="list-group-item">
+                            {{ orderDish.dish.name }} <strong>x {{ orderDish.quantity }}</strong>
+                        </li>
+                    </ul>
+                    <h6>Złożone: {{ this.order.date }}</h6>
+                </div>
+                <div class="col-4 text-center frame">
+                    <h3>Status zamówienia:</h3>
+                    <h4 class="finished">{{order.state}}</h4>
+                </div>
             </div>
         </div>
     </div>

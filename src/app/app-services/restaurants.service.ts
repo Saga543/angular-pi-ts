@@ -29,6 +29,19 @@ export class RestaurantsService {
                 }));
     }
 
+    getRestaurantById(id: string) {
+        return this.http.get<Restaurant[]>('https://fd-angular-default-rtdb.europe-west1.firebasedatabase.app/restaurants.json')
+            .pipe(
+                map(responseData => {
+                    for (const key in responseData) {
+                        if (responseData.hasOwnProperty(key) && responseData[key].ownerId === id) {
+                            return responseData[key]
+                        }
+                    }
+                    return null;
+                }));
+    }
+
     getCategories() {
         let resultArray: string[] = [];
 

@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Dish } from '../app-models/dish.model';
 import { Restaurant } from '../app-models/restaurant.model';
+import { RestaurantOwner } from '../app-models/restaurantOwner.model';
+import { RestaurantOwnersService } from '../app-services/restaurantOwners.service';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -16,9 +18,12 @@ export class HeaderComponent implements OnInit {
   isAuthenticated: boolean = false;
   displayHomePage: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService, private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private router: Router, private authService: AuthService, private http: HttpClient, private route: ActivatedRoute,
+    private ownerService: RestaurantOwnersService) { }
 
   ngOnInit(): void {
+    if (this.ownerService.isOwnerMode) this.router.navigate(['/konto/panel_restauracji']);
+
     this.isAuthenticated = this.authService.userAuthenticated;
 
     if (this.router.url === '/home') this.displayHomePage = true;
@@ -33,11 +38,8 @@ export class HeaderComponent implements OnInit {
   onPost() {
     this.http.post(
       'https://fd-angular-default-rtdb.europe-west1.firebasedatabase.app/restaurants.json',
-      new Restaurant('Kraków Burger', 3, 60, 10, 30, true, 'burger', 'kraków', [
-        new Dish('Burger 1', 25, 'opis...'),
-        new Dish('Burger 2', 25, 'opis...'),
-        new Dish('Burger 3', 25, 'opis...'),
-      ])
+      new Restaurant('Restauracja Testowa', 4, 45, 10, 30, true, 'testowe', 'rzeszów',
+        [new Dish('Danie test', 20, 'testy')], '5AXCzRJIIVaCrBLIaUDyZ5di9fI2')
     ).subscribe(responseData => console.log(responseData));
   }
 
@@ -57,6 +59,14 @@ export class HeaderComponent implements OnInit {
       .subscribe(
         restaurants => { console.log(restaurants); }
       );
+  }
+
+  onLogout() {
+    this.authService.logout();
+
+    let route = this.router.url;
+    if (route === '/home') this.router.navigate(['/konto', 'zamówienia']);
+    else this.router.navigate(['/home']);
   }
 
 }

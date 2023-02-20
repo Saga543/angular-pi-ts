@@ -11,5 +11,7 @@ export class Restaurant {
         public category: string,
         public location: string,
         public dishes: Dish[],
+
+        public ownerId?: string,
     ) { }
 }

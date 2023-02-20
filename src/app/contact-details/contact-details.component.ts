@@ -72,6 +72,8 @@ export class ContactDetailsComponent implements OnInit {
       this.order.date = format(new Date(), 'dd.MM.yyyy HH:mm');
 
       this.ordersService.sendOrder(this.order);
+      this.ordersService.deleteOrder(this.order);
+
 
       alert('Zamówienie zostało wysłane!');
       this.router.navigate(['/home']);
