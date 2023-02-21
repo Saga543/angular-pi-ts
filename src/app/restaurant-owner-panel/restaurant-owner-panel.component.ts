@@ -10,7 +10,7 @@ import { AuthService } from '../auth/auth.service';
 @Component({
   selector: 'app-restaurant-owner-panel',
   templateUrl: './restaurant-owner-panel.component.html',
-  styleUrls: ['./restaurant-owner-panel.component.css', '../app.component.css']
+  styleUrls: ['./restaurant-owner-panel.component.css', '../app.component.css'],
 })
 export class RestaurantOwnerPanelComponent implements OnInit {
   restaurant: Restaurant = new Restaurant('', 0, 0, 0, 0, false, '', '', []);

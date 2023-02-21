@@ -34,7 +34,8 @@ import { RestaurantOwnerPanelComponent } from './restaurant-owner-panel/restaura
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+
   ],
   providers: [RestaurantsService, OrdersService],
   bootstrap: [AppComponent],

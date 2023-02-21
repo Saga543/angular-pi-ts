@@ -1,20 +1,20 @@
 <div class="row mb-5">
-    <div class="col-3">
+    <div class="col-9 col-lg-3">
         <a routerLink="/home">
             <h1>FoodDelivery</h1>
         </a>
     </div>
-    <div class="col-6 mt-1">
+    <div class="col-lg-6 order-last mt-1">
         <input type="text" class="form-control text-center" placeholder="Wpisz lokalizację"
             [(ngModel)]="inputedLocation" *ngIf="!displayHomePage" (keyup.enter)="onInputLocation(inputedLocation)">
     </div>
-    <div class="col-3 text-end" *ngIf="isAuthenticated">
+    <div class="col-3 order-lg-last text-end" *ngIf="isAuthenticated">
         <a routerLink="/konto/zamówienia">
             <h2>Twoje zamówienia</h2>
         </a>
         <h4 (click)="onLogout()">Wyloguj</h4>
     </div>
-    <div class="col-3 text-end" *ngIf="!isAuthenticated">
+    <div class="col-3 order-lg-last text-end" *ngIf="!isAuthenticated">
         <a routerLink="/konto">
             <h2>Zaloguj się</h2>
         </a>
@@ -24,7 +24,7 @@
 </div>
 <div class="row mb-5"></div>
 <div id="home-layout" *ngIf="displayHomePage">
-    <div class="col mt-3 text-center">
+    <div class="col-sm mt-3 text-center">
         <h2>Witaj w serwisie do zamawiania jedzenia online!</h2>
         <h2>Znajdź restauracje w interesującej Cię lokalizacji, a następnie sprawdź ich ofertę.</h2>
         <input type="text" class="form-control text-center" placeholder="Wpisz lokalizację"

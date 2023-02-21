@@ -38,8 +38,11 @@ export class HeaderComponent implements OnInit {
   onPost() {
     this.http.post(
       'https://fd-angular-default-rtdb.europe-west1.firebasedatabase.app/restaurants.json',
-      new Restaurant('Restauracja Testowa', 4, 45, 10, 30, true, 'testowe', 'rzeszów',
-        [new Dish('Danie test', 20, 'testy')], '5AXCzRJIIVaCrBLIaUDyZ5di9fI2')
+      new Restaurant('Rzeszów Kebab 2', 5, 45, 10, 30, true, 'kebab', 'rzeszów',
+        [new Dish('Kebab 1', 20, 'opis'),
+        new Dish('Kebab 2', 25, 'opis'),
+        new Dish('Kebab 3', 30, 'opis'),
+        new Dish('Kebab 4', 35, 'opis')])
     ).subscribe(responseData => console.log(responseData));
   }
 
