@@ -17,7 +17,7 @@ export class AuthComponent {
 
     constructor(private authService: AuthService, private router: Router, private ownersService: RestaurantOwnersService) { }
 
-    onSwitchMode() {
+    onSwitch() {
         this.loginMode = !this.loginMode;
     }
 

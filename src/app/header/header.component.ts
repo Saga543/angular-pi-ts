@@ -30,7 +30,6 @@ export class HeaderComponent implements OnInit {
 
   }
 
-
   onInputLocation(location: string) {
     this.router.navigate(['/restauracje/' + location]);
   }

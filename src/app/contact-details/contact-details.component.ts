@@ -19,13 +19,13 @@ export class ContactDetailsComponent implements OnInit {
   order: Order = new Order(this.restaurant, [], 0);
 
   contactDetailsForm: FormGroup = new FormGroup({
-    'name': new FormControl(null, [Validators.required, Validators.pattern('[a-zA-Z]+')]),
-    'surname': new FormControl(null, [Validators.required, Validators.pattern('[a-zA-Z]+')]),
+    'name': new FormControl(null, [Validators.required, Validators.pattern('[a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃ]+$')]),
+    'surname': new FormControl(null, [Validators.required, Validators.pattern('[a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃ]+$')]),
     'email': new FormControl(null, Validators.email),
-    'phoneNumber': new FormControl(null, [Validators.required, Validators.pattern('[0-9]{9}')]), //pattern="[0-9]{9}"
+    'phoneNumber': new FormControl(null, [Validators.required, Validators.pattern('[0-9]{9}')]),
 
-    'location': new FormControl(null, [Validators.required, Validators.pattern('[a-zA-Z]+')]),
-    'street': new FormControl(null, [Validators.required, Validators.pattern('[a-zA-Z]+')]),
+    'location': new FormControl(null, [Validators.required, Validators.pattern('[a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃ]+$')]),
+    'street': new FormControl(null, [Validators.required, Validators.pattern('[a-zA-ZęóąśłżźćńĘÓĄŚŁŻŹĆŃ]+$')]),
     'buildingNumber': new FormControl(null, [Validators.required, Validators.pattern('[0-9]+')]),
     'flatNumber': new FormControl(null, Validators.pattern('[0-9]+')),
   });
@@ -52,7 +52,7 @@ export class ContactDetailsComponent implements OnInit {
 
   }
 
-  onSubmit() {
+  onSendOrder() {
     if (this.contactDetailsForm.valid) {
       const contactDetails = new ContactDetails(
         this.contactDetailsForm.get('name')?.value,

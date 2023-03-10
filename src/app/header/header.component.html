@@ -10,13 +10,13 @@
     </div>
     <div class="col-3 order-lg-last text-end" *ngIf="isAuthenticated">
         <a routerLink="/konto/zamówienia">
-            <h2>Twoje zamówienia</h2>
+            <h2 id="client-orders-link">Twoje zamówienia</h2>
         </a>
-        <h4 (click)="onLogout()">Wyloguj</h4>
+        <h4 id="logout-client" (click)="onLogout()">Wyloguj</h4>
     </div>
     <div class="col-3 order-lg-last text-end" *ngIf="!isAuthenticated">
         <a routerLink="/konto">
-            <h2>Zaloguj się</h2>
+            <h2 id="login-link">Zaloguj się</h2>
         </a>
     </div>
     <!-- <button class="btn btn-primary mt-5" (click)="onPost()">POST</button> -->

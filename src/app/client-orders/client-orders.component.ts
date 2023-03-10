@@ -22,6 +22,7 @@ export class ClientOrdersComponent implements OnInit {
     this.ordersService.getClientOrders().subscribe(
       orders => {
         this.orders = orders;
+        this.orders.reverse();
 
         this.loading = false;
       }

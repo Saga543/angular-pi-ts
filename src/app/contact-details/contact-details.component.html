@@ -3,7 +3,7 @@
 <main class="row mt-5">
 
     <section class="col-sm-8 col-md-6 offset-sm-2 offset-md-3 mb-3 p-0 frame">
-        <form [formGroup]="contactDetailsForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="contactDetailsForm" (ngSubmit)="onSendOrder()">
             <div class="row m-1 frame">
                 <legend style="font-weight: bold;">Dane osobowe</legend>
                 <div class="col-12 col-xl-6 mb-3">
@@ -11,27 +11,30 @@
                     <input id="name" type="text" class="form-control text-center" formControlName="name">
                     <span class="form-text"
                         *ngIf="!contactDetailsForm.get('name')?.valid && contactDetailsForm.get('name')?.touched">Podaj
+                        poprawne
                         imię</span>
                 </div>
                 <div class="col-12 col-xl-6 mb-3">
                     <h5 class="text-center">E-mail*</h5>
-                    <input type="text" class="form-control text-center" formControlName="email">
+                    <input id="email" type="text" class="form-control text-center" formControlName="email">
                     <span class="form-text"
                         *ngIf="!contactDetailsForm.get('email')?.valid && contactDetailsForm.get('email')?.touched">Niepoprawny
                         format email</span>
                 </div>
                 <div class="col-12 col-xl-6 mb-3">
                     <h5 class="text-center">Nazwisko</h5>
-                    <input type="text" class="form-control text-center" formControlName="surname">
+                    <input id="surname" type="text" class="form-control text-center" formControlName="surname">
                     <span class="form-text"
                         *ngIf="!contactDetailsForm.get('surname')?.valid && contactDetailsForm.get('surname')?.touched">Podaj
+                        poprawne
                         nazwisko</span>
                 </div>
                 <div class="col-12 col-xl-6 mb-3">
                     <h5 class="text-center">Telefon</h5>
-                    <input type="tel" class="form-control text-center" formControlName="phoneNumber">
+                    <input id="phoneNumber" type="tel" class="form-control text-center" formControlName="phoneNumber">
                     <span class="form-text"
-                        *ngIf="!contactDetailsForm.get('phoneNumber')?.valid && contactDetailsForm.get('phoneNumber')?.touched">Niepoprawny
+                        *ngIf="!contactDetailsForm.get('phoneNumber')?.valid && contactDetailsForm.get('phoneNumber')?.touched">Podaj
+                        poprawny
                         numer telefonu</span>
                 </div>
             </div>
@@ -39,28 +42,30 @@
                 <legend style="font-weight: bold;">Adres dostawy</legend>
                 <div class="col-xl-6 mb-3">
                     <h5 class="text-center">Miasto</h5>
-                    <input type="text" class="form-control text-center" formControlName="location">
+                    <input id="client-location" type="text" class="form-control text-center" formControlName="location">
                     <span class="form-text"
                         *ngIf="!contactDetailsForm.get('location')?.valid && contactDetailsForm.get('location')?.touched">Podaj
+                        poprawne
                         miasto</span>
                 </div>
                 <div class="col-xl-6 mb-3">
                     <h5 class="text-center">Nr. budynku</h5>
-                    <input type="text" class="form-control text-center" formControlName="buildingNumber">
+                    <input id="buildingNumber" type="text" class="form-control text-center"
+                        formControlName="buildingNumber">
                     <span class="form-text"
-                        *ngIf="!contactDetailsForm.get('buildingNumber')?.valid && contactDetailsForm.get('buildingNumber')?.touched">Podaj
-                        numer budynku</span>
+                        *ngIf="!contactDetailsForm.get('buildingNumber')?.valid && contactDetailsForm.get('buildingNumber')?.touched">
+                        Podaj poprawny numer budynku</span>
                 </div>
                 <div class="col-xl-6 mb-3">
                     <h5 class="text-center">Ulica</h5>
-                    <input type="text" class="form-control text-center" formControlName="street">
+                    <input id="street" type="text" class="form-control text-center" formControlName="street">
                     <span class="form-text"
                         *ngIf="!contactDetailsForm.get('street')?.valid && contactDetailsForm.get('street')?.touched">Podaj
-                        ulicę</span>
+                        poprawną ulicę</span>
                 </div>
                 <div class="col-xl-6 mb-3">
                     <h5 class="text-center">Nr. mieszkania*</h5>
-                    <input type="text" class="form-control text-center" formControlName="flatNumber">
+                    <input id="flatNumber" type="text" class="form-control text-center" formControlName="flatNumber">
                     <span class="form-text"
                         *ngIf="!contactDetailsForm.get('flatNumber')?.valid && contactDetailsForm.get('flatNumber')?.touched">Pole
                         musi zawierać wyłącznie numer</span>
@@ -75,13 +80,17 @@
             <h2 class="col-12 text-center">Zamówienie</h2>
             <div class="col-12 text-center">
                 <ul class="list-group" *ngFor="let orderDish of order.dishes">
-                    <li class="list-group-item">{{orderDish.dish.name}} x <strong>{{orderDish.quantity}}</strong></li>
+                    <li class="list-group-item">
+                        <span>{{orderDish.dish.name}}</span>
+                        <strong> x {{orderDish.quantity}}</strong>
+                    </li>
                 </ul>
             </div>
 
             <h3 class="text-center">Razem: {{order.price}} zł</h3>
             <div class="col-12 text-center mb-3">
-                <button class="btn btn-success w-75" (click)="onSubmit()">Potwierdzam i płacę</button>
+                <button class="btn btn-success w-75" [disabled]="!contactDetailsForm.valid"
+                    (click)="onSendOrder()">Wyślij zamówienie</button>
             </div>
         </div>
     </section>

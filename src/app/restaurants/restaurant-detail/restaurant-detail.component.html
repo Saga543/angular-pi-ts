@@ -4,16 +4,16 @@
     <div class="col-8 mx-4 p-0 h-25 frame">
         <section class="row m-2 frame" *ngFor="let dish of restaurant.dishes">
             <div class="col-8">
-                <h2>{{ dish.name }}</h2>
+                <h2 class="dish-name">{{ dish.name }}</h2>
             </div>
             <div class="col-4">
-                <h2 class="text-end">{{ dish.price }} zł</h2>
+                <h2 class="text-end dish-price">{{ dish.price }} zł</h2>
             </div>
             <div class="col-8">
                 <p>{{ dish.description }}</p>
             </div>
             <div class="col-sm-4 text-center text-sm-end mb-1">
-                <button class="btn btn-success w-75" type="button" (click)="onAddDish(dish)"
+                <button class="btn btn-success w-75 add-dish-btn" type="button" (click)="onAddDish(dish)"
                     *ngIf="!order.isDishInOrder(dish)">Dodaj do
                     zamówienia</button>
 
@@ -31,7 +31,9 @@
                 <ul class="list-group">
                     <li class="list-group-item" *ngFor="let orderDish of order.dishes">
                         <div class="row">
-                            <div class="col-6">{{ orderDish.dish.name }} <strong>x {{ orderDish.quantity }} </strong>
+                            <div class="col-6">
+                                <span class="order-dish-name">{{ orderDish.dish.name }}</span>
+                                <strong> x {{ orderDish.quantity}}</strong>
                             </div>
                             <div class="col-6 text-end">
                                 <button class="btn btn-success btn-sm mx-1 w-25"
@@ -45,7 +47,7 @@
                     </li>
                 </ul>
             </div>
-            <h3 class="text-center">{{ order.price }}zł</h3>
+            <h3 id="order-price" class="text-center">{{ order.price }} zł</h3>
             <div class="col-12 text-center mb-2">
                 <a>
                     <button id="confirm-order-button" class="btn btn-success w-75" type="button"

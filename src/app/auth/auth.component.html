@@ -2,7 +2,9 @@
 <div class="container d-flex align-content-end flex-wrap mt-5">
     <div class="col-sm-8 col-md-6 col-lg-4 offset-xs-1 offset-sm-2 offset-md-3 offset-lg-4 my-3 frame">
         <div class="row text-center">
-            <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+            <h2>{{ loginMode ?
+                'Logowanie' : 'Rejestracja'}}</h2>
+            <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
                 <div class="col-10 col-sm-8 offset-1 offset-sm-2 my-4">
                     <h5>E-mail</h5>
                     <input type="text" class="form-control text-center" ngModel name="email" required email>
@@ -12,13 +14,9 @@
                     <input type="password" class="form-control text-center" ngModel name="password" required
                         minlength="6">
                 </div>
-                <div class="col-10 col-sm-8 offset-1 offset-sm-2 mt-1 mb-4" *ngIf="!loginMode">
-                    <h5>Powtórz hasło</h5>
-                    <input type="password" class="form-control text-center" ngModel name="repeatPassword" required
-                        minlength="6">
-                </div>
                 <div class="col-12 mb-4">
-                    <button type="submit" class="col-6 btn btn-success" [disabled]="!registerForm.valid">{{ loginMode ?
+                    <button id="submit-auth-form" type="submit" class="col-6 btn btn-success"
+                        [disabled]="!authForm.valid">{{ loginMode ?
                         'Zaloguj' : 'Zarejestruj'}}</button>
                 </div>
             </form>
@@ -33,7 +31,7 @@
             <div class="col-12 mb-4">
                 <h6>{{ loginMode ?
                     'Nie masz konta ?' : 'Masz już konto ?'}}</h6>
-                <button type="button" class="btn btn-success" (click)="onSwitchMode()">{{ loginMode ?
+                <button type="button" class="btn btn-success" (click)="onSwitch()">{{ loginMode ?
                     'Zarejestruj się' : 'Zaloguj się'}}</button>
             </div>
         </div>

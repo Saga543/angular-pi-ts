@@ -30,6 +30,8 @@ export class RestaurantOwnerPanelComponent implements OnInit {
         this.ordersService.loadOrders().subscribe(orders => {
           this.orders = this.ordersService.getRestaurantOrders(this.restaurant);
           this.ordersValue = this.ordersService.countOrdersValue(this.orders);
+
+          this.orders.reverse();
         })
       }
     );
